@@ -1,8 +1,5 @@
 package org.example.util
 
-import java.util.HashMap
-import javax.lang.model.type.ErrorType
-
 /**
  * Represents a number which has data as a String inside
  * Implementation supports a variety length of digits (more than int)
@@ -11,7 +8,7 @@ import javax.lang.model.type.ErrorType
 class Number(private val data: ArrayList<Digit>) {
     constructor(data: ArrayList<Char>) : this(arrayListOf<Digit>()) {
         for (element in data) {
-           pushBack(element)
+           add(element)
         }
     }
     /**
@@ -19,10 +16,7 @@ class Number(private val data: ArrayList<Digit>) {
      * @param char the character representing the digit to add
      * @throws Error if the character is not a valid digit
      */
-    public fun pushBack(char: Char) {
-        if (!(Digit.checkCharacter(char))) {
-            throw WrongCharacterError("Adding '$char' into a Number class that is not in the alphabet")
-        }
+    public fun add(char: Char) {
         data.add(Digit(char))
     }
 }
@@ -32,6 +26,11 @@ class Number(private val data: ArrayList<Digit>) {
  * @property char the character representing the digit
  */
 class Digit(private val char: Char) {
+    init {
+        if (!checkCharacter(char)) {
+            throw WrongCharacterError("Adding '$char' into a Number class that is not in the alphabet")
+        }
+    }
     companion object {
         private val alphabet: HashSet<Char> = hashSetOf('0', '1', '2', '3', '4', '5', '6', '7', '8', '9')
         public fun checkCharacter(char: Char) : Boolean {
@@ -45,5 +44,6 @@ class Digit(private val char: Char) {
 
 /**
  * Represents the specific error for the wrong digit
+ * @param errorMessage the error message
  */
-class WrongCharacterError(val errorMessage: String) : Error()
+class WrongCharacterError(private val errorMessage: String) : Error()
