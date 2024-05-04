@@ -1,17 +1,54 @@
 package org.example.tree
 import org.example.expression.Operation
 
-class Node(val chilren: ArrayList<Node>) {
-    var operation: Operation? = null;
-    private var leaf = null;
-    public constructor(operation: Operation, left: Node, right: Node) : this(arrayListOf<Node>(left, right)) {
+/**
+ * Supporting class for the Tree class
+ * @property children the list of children
+ * @property operation the operation in a node, might be null for leaves
+ */
+class Node(var children: ArrayList<Node>) {
+    var operation: Operation? = null
+    var leaf: Leaf? = null
+    constructor(operation: Operation, left: Node, right: Node) : this(arrayListOf<Node>(left, right)) {
         this.operation = operation
     }
-    public constructor(operation: Operation, argument: Node) : this(arrayListOf<Node>(argument)) {
+    constructor(operation: Operation, argument: Node) : this(arrayListOf<Node>(argument)) {
         this.operation = operation
     }
-    public fun isLeaf(): Boolean {
+    constructor(operation: Operation) : this(arrayListOf()) {
+        this.operation = operation
+    }
+    constructor(string: String) : this(arrayListOf()) {
+        this.leaf = Leaf(string)
+    }
+    /**
+     * @returns true if the node is a leaf
+     */
+    fun isLeaf(): Boolean {
         return leaf != null
     }
-
+    /**
+     * @returns true if the node represents a binary operation
+     */
+    fun isBinary(): Boolean {
+        return children.size == 2
+    }
+    /**
+     * @returns true if the node represents an unary operation
+     */
+    fun isUnary(): Boolean {
+        return children.size == 1
+    }
+    /**
+     * @return the left children
+     */
+    fun left(): Node {
+        return children[0]
+    }
+    /**
+     * @return the right children
+     */
+    fun right(): Node {
+        return children[children.size - 1]
+    }
 }
