@@ -1,37 +1,37 @@
 package org.example.expression
 import org.example.parser.makeExpression
 import org.example.tree.Node
-import org.example.tree.Tree
+import org.example.tree.QueryTree
 
 /**
  * Represents a base class for expressions
- * @param tree is a Tree class that represents the internal structure of an expression
+ * @param queryTree is a Tree class that represents the internal structure of an expression
  */
-open class Expression(open val tree: Tree) {
+open class Expression(open val queryTree: QueryTree) {
     companion object {
         fun expressionFromString(string: String) : Expression {
             return makeExpression(string)
         }
     }
     operator fun plus(other: Expression) : BinaryExpression {
-        return BinaryExpression(Tree(Node(Operation.ADD, tree.root, other.tree.root)))
+        return BinaryExpression(QueryTree(Node(Operation.ADD, queryTree.root, other.queryTree.root)))
     }
     operator fun minus(other: Expression) : BinaryExpression {
-        return BinaryExpression(Tree(Node(Operation.SUB, tree.root, other.tree.root)))
+        return BinaryExpression(QueryTree(Node(Operation.SUB, queryTree.root, other.queryTree.root)))
     }
     operator fun times(other: Expression) : BinaryExpression {
-        return BinaryExpression(Tree(Node(Operation.MUL, tree.root, other.tree.root)))
+        return BinaryExpression(QueryTree(Node(Operation.MUL, queryTree.root, other.queryTree.root)))
     }
 }
 
-class BinaryExpression(override val tree: Tree) : Expression(tree)
+class BinaryExpression(override val queryTree: QueryTree) : Expression(queryTree)
 
-class UnaryExpression(override val tree: Tree) : Expression(tree) {
-    constructor(string: String) : this(Tree(Operation.ADD)) {
+class UnaryExpression(override val queryTree: QueryTree) : Expression(queryTree) {
+    constructor(string: String) : this(QueryTree(Operation.ADD)) {
         if (Operation.checkOperation(string[0])) {
-            tree.root = Node(Operation.SUB, Node(string.substring(1)))
+            queryTree.root = Node(Operation.SUB, Node(string.substring(1)))
         } else {
-            tree.root = Node(string)
+            queryTree.root = Node(string)
         }
     }
 }
