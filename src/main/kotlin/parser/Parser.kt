@@ -43,6 +43,7 @@ fun makeExpression(data: String) : Expression {
     val brackets : ArrayList<Bracket> = arrayListOf()
     val events: ArrayList<OperationEvent> = arrayListOf()
     var lastExpression: Expression? = null
+    //Reading all chars from a stream iteratively
     while (!stream.isEmpty()) {
         val currentChar = stream.currentChar()
         val index = stream.currentIndex()

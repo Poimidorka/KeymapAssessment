@@ -7,29 +7,37 @@ import org.junit.jupiter.api.Test
 import kotlin.random.Random
 
 class ParserKtTest {
-
+    fun assertEqualExpression(expressionToParse: String) {
+        assertEquals(expressionToParse, makeExpression(expressionToParse).toString())
+    }
     @Test
     fun smallTest() {
         var expressionToParse = "(1000-7)"
-        assertEquals(makeExpression(expressionToParse).toString(), expressionToParse)
+        assertEqualExpression(expressionToParse)
         expressionToParse = "1000"
-        assertEquals(makeExpression(expressionToParse).toString(), expressionToParse)
+        assertEqualExpression(expressionToParse)
         expressionToParse = "-1000"
-        assertEquals(makeExpression(expressionToParse).toString(), expressionToParse)
+        assertEqualExpression(expressionToParse)
+        expressionToParse = "(element-element)"
+        assertEqualExpression(expressionToParse)
     }
     @Test
     fun iterativeSmallTest() {
         for (i in 1000 downTo 7 step 7) {
             val expressionToParse = "($i-7)"
-            val result: Expression = makeExpression(expressionToParse)
-            assertEquals(result.toString(), expressionToParse)
+            assertEqualExpression(expressionToParse)
         }
     }
     @Test
     fun randomTest() {
         val REPEATS = 50
+        val ops = arrayListOf("-", "+", "*")
         repeat(REPEATS) {
-
+            var expressionToParse = "(1000+1000)"
+            repeat(3) {
+                expressionToParse = "(" + expressionToParse + ops[Random.nextInt(0, 3)] + Random.nextInt() + ")"
+            }
+            assertEqualExpression(expressionToParse)
         }
     }
 }

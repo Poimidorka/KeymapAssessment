@@ -28,6 +28,9 @@ open class Expression(open val queryTree: QueryTree) {
     }
 }
 
+/**
+ * Represents binary expression like a - b
+ */
 class BinaryExpression(override val queryTree: QueryTree) : Expression(queryTree)
 
 class UnaryExpression(override val queryTree: QueryTree) : Expression(queryTree) {
