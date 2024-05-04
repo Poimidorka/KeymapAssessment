@@ -3,7 +3,7 @@
 The Kotlin project that consist of library that is able to parse the expressions
 that satisfy the following grammar:
 
-```haskell
+```pascal
 <digit> ::= “0” | “1" | “2” | “3" | “4” | “5" | “6” | “7" | “8” | “9"
 <number> ::= <digit> | <digit> <number>
 <operation> ::= “+” | “-” | “*”
