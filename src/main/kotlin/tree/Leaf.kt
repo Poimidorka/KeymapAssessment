@@ -1,7 +1,7 @@
 package org.example.tree
 import org.example.util.Number
 
-class Leaf(private val data: String) {
+data class Leaf(private val data: String) {
     private var isNumber = false
     private var isElement = false
     init {

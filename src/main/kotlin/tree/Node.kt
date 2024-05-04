@@ -6,7 +6,7 @@ import org.example.expression.Operation
  * @property children the list of children
  * @property operation the operation in a node, might be null for leaves
  */
-class Node(var children: ArrayList<Node>) {
+class Node(private var children: ArrayList<Node>) {
     var operation: Operation? = null
     var leaf: Leaf? = null
     constructor(operation: Operation, left: Node, right: Node) : this(arrayListOf<Node>(left, right)) {
