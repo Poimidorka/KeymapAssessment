@@ -40,7 +40,7 @@ fun makeExpression(data: String) : Expression {
         throw ParserException("Empty strings are not supported")
     }
     val stream = StringStream(data)
-    val brackets : ArrayList<Bracket> = arrayListOf()
+    var bracketsBalance = 0
     val events: ArrayList<OperationEvent> = arrayListOf()
     var lastExpression: Expression? = null
     //Reading all chars from a stream iteratively
@@ -73,19 +73,18 @@ fun makeExpression(data: String) : Expression {
             }
             currentChar == '(' -> {
                 stream.read()
-                brackets.add(Bracket(index, true))
+                bracketsBalance++
             }
             currentChar == ')' -> {
                 stream.read()
-                val start = brackets.last()
-                if (!start.isOpen) {
-                    throw ParserException("Brackets error at position $index")
+                if (bracketsBalance == 0) {
+                    throw ParserException("Brackets balance is negative at position $index")
                 }
                 if (lastExpression == null) {
                     throw ParserException("")
                 }
                 lastExpression = applyOperation(events.last().expression, events.last().operation, lastExpression)
-                brackets.removeLast()
+                bracketsBalance--
                 events.removeLast()
             }
             else -> {
@@ -93,7 +92,7 @@ fun makeExpression(data: String) : Expression {
             }
         }
     }
-    if (lastExpression == null || brackets.isNotEmpty()) {
+    if (lastExpression == null || bracketsBalance != 0) {
         throw ParserException("Unsupported brackets or empty expression")
     }
     return lastExpression
