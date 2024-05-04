@@ -53,7 +53,7 @@ fun makeExpression(data: String) : Expression {
                 if (stream.isEmpty()) {
                     throw ParserException("String ends with the operation $operation")
                 }
-                if (index == 0 || stream[index - 1] == '(') {
+                if (index == 0 || stream[index - 1] == '(' || Operation.checkOperation(stream[index - 1])) {
                     if (operation != Operation.SUB) {
                         throw ParserException("Unsupported unary operation, $operation")
                     }
