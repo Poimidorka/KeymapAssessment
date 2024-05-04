@@ -30,6 +30,14 @@ data class Number(private val data: ArrayList<Digit>) {
             return true
         }
     }
+
+    override fun toString(): String {
+        val builder = StringBuilder()
+        for (digit in data) {
+            builder.append(digit)
+        }
+        return builder.toString()
+    }
 }
 
 /**
@@ -48,12 +56,12 @@ data class Digit(private val char: Char) {
          * Checks that the character is in the alphabet
          * @param char the character to check
          */
-        public fun checkCharacter(char: Char) : Boolean {
+        fun checkCharacter(char: Char) : Boolean {
             return alphabet.contains(char)
         }
     }
-    fun toChar(): Char {
-        return char
+    override fun toString(): String {
+        return char.toString()
     }
 }
 

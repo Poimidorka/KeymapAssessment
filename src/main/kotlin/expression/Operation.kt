@@ -22,10 +22,8 @@ enum class Operation(private val symbol: Char) {
             return enumValues<Operation>().find { it.symbol == char }!!
         }
     }
-}
 
-/**
- * Represents the specific error for the wrong type of operation
- * @param errorMessage the error message
- */
-class WrongOperationException(private val errorMessage: String) : Exception()
+    override fun toString(): String {
+        return this.symbol.toString()
+    }
+}

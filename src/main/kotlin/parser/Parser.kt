@@ -76,6 +76,7 @@ fun makeExpression(data: String) : Expression {
                 brackets.add(Bracket(index, true))
             }
             currentChar == ')' -> {
+                stream.read()
                 val start = brackets.last()
                 if (!start.isOpen) {
                     throw ParserException("Brackets error at position $index")
