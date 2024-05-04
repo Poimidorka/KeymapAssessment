@@ -3,7 +3,7 @@ package org.example.parser
 class StringStream(private val string: String) {
     private var index = 0
     fun isEmpty(): Boolean {
-        return index < length()
+        return index == length()
     }
     fun read(): Char {
         return string[index++]
