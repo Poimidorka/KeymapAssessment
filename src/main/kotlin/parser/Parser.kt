@@ -17,15 +17,14 @@ private fun readNumber(stream: StringStream): Number {
 }
 
 private fun readWord(stream: StringStream): String {
-    var result = ""
+    var word = ""
     while (!stream.isEmpty() && stream.currentChar().isLetter()) {
-        result += stream.read()
+        word += stream.read()
     }
-    if (result != "element") {
-        throw ParserException("Words that are not equal to" +
-                " \"element\" are not supported, $result != \"element\"")
+    if (word != "element") {
+        throw ParserException("Only the word \"element\" is supported, found: $word")
     }
-    return result
+    return word
 }
 
 private fun applyOperation(left: Expression, operation: Operation, right: Expression): Expression {
@@ -57,21 +56,24 @@ fun makeExpression(data: String) : Expression {
                     if (operation != Operation.SUB) {
                         throw ParserException("Unsupported unary operation, $operation")
                     }
-                    events.add(OperationEvent(operation, index,
+                    events.add(OperationEvent(operation,
                         UnaryExpression(operation.toString() + readNumber(stream))))
                     continue
                 }
                 if (lastExpression == null) {
                     throw ParserException("Left expression is not defined for the operation at position $index")
                 }
-                events.add(OperationEvent(operation, index, lastExpression))
+                events.add(OperationEvent(operation, lastExpression))
+            }
+            currentChar.isLetter() -> {
+                lastExpression = UnaryExpression(readWord(stream))
+            }
+            Digit.checkCharacter(currentChar) -> {
+                lastExpression = UnaryExpression(readNumber(stream).toString())
             }
             currentChar == '(' -> {
                 stream.read()
                 brackets.add(Bracket(index, true))
-            }
-            currentChar.isLetter() -> {
-                lastExpression = UnaryExpression(readWord(stream))
             }
             currentChar == ')' -> {
                 val start = brackets.last()
