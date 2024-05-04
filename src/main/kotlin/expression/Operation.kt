@@ -8,11 +8,6 @@ enum class Operation(private val symbol: Char) {
     SUB('-'),
     ADD('+'),
     MUL('*');
-    init {
-        if (!checkOperation(symbol)) {
-            throw WrongOperationException("Making operation from the unsupported character '$symbol'")
-        }
-    }
     companion object {
         /**
          * @return true if the char represents a valid operation
