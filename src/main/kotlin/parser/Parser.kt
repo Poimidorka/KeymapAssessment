@@ -52,12 +52,11 @@ fun makeExpression(data: String) : Expression {
                 if (stream.isEmpty()) {
                     throw ParserException("String ends with the operation $operation")
                 }
-                if (index == 0 || stream[index - 1] != ')') {
+                if (index == 0 || stream[index - 1] == '(') {
                     if (operation != Operation.SUB) {
                         throw ParserException("Unsupported unary operation, $operation")
                     }
-                    events.add(OperationEvent(operation,
-                        UnaryExpression(operation.toString() + readNumber(stream))))
+                    lastExpression = UnaryExpression(operation.toString() + readNumber(stream))
                     continue
                 }
                 if (lastExpression == null) {

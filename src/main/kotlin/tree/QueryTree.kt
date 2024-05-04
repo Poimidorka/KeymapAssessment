@@ -11,12 +11,11 @@ class QueryTree(var root: Node) {
             root.isBinary() -> {
                 val left = QueryTree(root.left()).toStringBuilder()
                 val right = QueryTree(root.right()).toStringBuilder()
-                result.append('(').append(left).append(')').
-                append(root.operation).
-                append('(').append(right).append(')')
+                result.append('(').append(left).append(root.operation).append(right).append(')')
             }
             root.isUnary() -> {
-                result.append("Undefined-subexpression")
+                val left = QueryTree(root.left()).toStringBuilder()
+                result.append(root.operation).append(left)
             }
             else -> {}
         }

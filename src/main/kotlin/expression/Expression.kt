@@ -22,6 +22,10 @@ open class Expression(open val queryTree: QueryTree) {
     operator fun times(other: Expression) : BinaryExpression {
         return BinaryExpression(QueryTree(Node(Operation.MUL, queryTree.root, other.queryTree.root)))
     }
+
+    override fun toString(): String {
+        return queryTree.toString()
+    }
 }
 
 class BinaryExpression(override val queryTree: QueryTree) : Expression(queryTree)
