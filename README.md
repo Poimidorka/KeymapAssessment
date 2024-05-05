@@ -51,9 +51,9 @@ bash gradlew.bat build
     - [Expression.kt](src/main/kotlin/expression/Expression.kt) - Expression class and inheritances such as BinaryExpression and UnaryExpression
     - [Operation.kt](src/main/kotlin/expression/Operation.kt) - Operation enum class that is created for + - * binary operations
   - [parser](src/main/kotlin/parser) - Package that parsers incoming data and checks the validity of it
-    - [Parser.kt](src/main/kotlin/parser/Parser.kt) - Contains main function with stack algorithm to parse the data
+    - [StringParser.kt](src/main/kotlin/parser/StringParser.kt) - Contains main function with stack algorithm to parse the data
     - [OperationEvent.kt](src/main/kotlin/parser/OperationEvent.kt) - Supportive data class to store operations as stack events 
-    - [StringStream.kt](src/main/kotlin/parser/StringStream.kt) - Supportive class to combine InputStream and String together to make parsing process more convinient and succinct
+    - [StringInputStream.kt](src/main/kotlin/parser/StringInputStream.kt) - Supportive class to combine InputStream and String together to make parsing process more convinient and succinct
   - [tree](src/main/kotlin/tree) - Package that represents QueryTree class, and it's supportive classes
     - [Leaf.kt](src/main/kotlin/tree/Leaf.kt) - Leaf data class that represents leaf data like "element" or Number
     - [Node.kt](src/main/kotlin/tree/Node.kt) - Node class for a tree that holds operation and list of nodes for this operation

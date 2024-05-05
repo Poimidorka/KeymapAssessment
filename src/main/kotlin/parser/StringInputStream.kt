@@ -5,7 +5,7 @@ package org.example.parser
  * Helps to work with string while parsing data
  * @property string the buffer string
  */
-class StringStream(private val string: String) {
+class StringInputStream(private val string: String) {
     private var index = 0
     /**
      * Check that the index is at the end of buffer

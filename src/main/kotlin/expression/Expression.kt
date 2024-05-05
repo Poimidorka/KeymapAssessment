@@ -1,5 +1,5 @@
 package org.example.expression
-import org.example.parser.makeExpression
+import org.example.parser.makeExpressionFromString
 import org.example.tree.Node
 import org.example.tree.QueryTree
 
@@ -10,7 +10,7 @@ import org.example.tree.QueryTree
 open class Expression(open val queryTree: QueryTree) {
     companion object {
         fun expressionFromString(string: String) : Expression {
-            return makeExpression(string)
+            return makeExpressionFromString(string)
         }
     }
     operator fun plus(other: Expression) : BinaryExpression {
@@ -26,19 +26,43 @@ open class Expression(open val queryTree: QueryTree) {
     override fun toString(): String {
         return queryTree.toString()
     }
+
+    /**
+     * @return left expression (if exists)
+     */
+    fun left() : Expression? {
+        if (queryTree.root.childenCount() == 0)
+            return null
+        return Expression(QueryTree(queryTree.root.left()))
+    }
+
+    /**
+     * @return right expression (if exists)
+     */
+    fun right() : Expression? {
+        if (queryTree.root.childenCount() <= 1)
+            return null
+        return Expression(QueryTree(queryTree.root.right()))
+    }
 }
 
 /**
  * Represents binary expression like a - b
  */
-class BinaryExpression(override val queryTree: QueryTree) : Expression(queryTree)
+class BinaryExpression(override val queryTree: QueryTree) : Expression(queryTree) {
+    init {
+        if (!queryTree.root.isBinary())
+            throw WrongExpressionException("Attempting to create the Binary expression from a non-binary rooted tree")
+    }
+}
 
 class UnaryExpression(override val queryTree: QueryTree) : Expression(queryTree) {
     constructor(string: String) : this(QueryTree(Operation.ADD)) {
-        if (Operation.checkOperation(string[0])) {
+        if (Operation.checkOperation(string[0]))
             queryTree.root = Node(Operation.SUB, Node(string.substring(1)))
-        } else {
+        else
             queryTree.root = Node(string)
-        }
     }
 }
+
+class WrongExpressionException(errorMessage: String) : Exception(errorMessage)

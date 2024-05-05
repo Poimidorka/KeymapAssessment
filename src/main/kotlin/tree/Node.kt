@@ -51,4 +51,11 @@ class Node(private var children: ArrayList<Node>) {
     fun right(): Node {
         return children[children.size - 1]
     }
+
+    /**
+     * @return the number of children
+     */
+    fun childenCount(): Int {
+        return children.size
+    }
 }

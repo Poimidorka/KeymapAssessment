@@ -5,7 +5,12 @@ import org.example.expression.UnaryExpression
 import org.example.util.Digit
 import org.example.util.Number
 
-private fun readNumber(stream: StringStream): Number {
+
+/**
+ * @param stream - incoming stream
+ * @return a Number from a stream
+ */
+private fun readNumber(stream: StringInputStream): Number {
     val result = Number()
     while (!stream.isEmpty() && Digit.checkCharacter(stream.currentChar())) {
         result.add(stream.read())
@@ -16,7 +21,11 @@ private fun readNumber(stream: StringStream): Number {
     return result
 }
 
-private fun readWord(stream: StringStream): String {
+/**
+ * @param stream - incoming stream
+ * @return a String (sequence of letters) from a stream
+ */
+private fun readWord(stream: StringInputStream): String {
     var word = ""
     while (!stream.isEmpty() && stream.currentChar().isLetter()) {
         word += stream.read()
@@ -27,6 +36,12 @@ private fun readWord(stream: StringStream): String {
     return word
 }
 
+/**
+ * @param left - left expression
+ * @param right - right expression
+ * @param operation - operation to apply
+ * @return Expression
+ */
 private fun applyOperation(left: Expression, operation: Operation, right: Expression): Expression {
     return when (operation) {
         Operation.ADD -> left + right
@@ -35,19 +50,23 @@ private fun applyOperation(left: Expression, operation: Operation, right: Expres
     }
 }
 
-fun makeExpression(data: String) : Expression {
+/**
+ * E
+ */
+fun makeExpressionFromString(data: String) : Expression {
     if (data.isEmpty()) {
         throw ParserException("Empty strings are not supported")
     }
-    val stream = StringStream(data)
+    val stream = StringInputStream(data)
     var bracketsBalance = 0
     val events: ArrayList<OperationEvent> = arrayListOf()
     var lastExpression: Expression? = null
-    //Reading all chars from a stream iteratively
+    // Reading all chars from a stream iteratively
     while (!stream.isEmpty()) {
         val currentChar = stream.currentChar()
         val index = stream.currentIndex()
         when {
+            // Checking several cases
             Operation.checkOperation(currentChar) -> {
                 val operation = Operation.fromChar(stream.read())
                 if (stream.isEmpty()) {
@@ -98,4 +117,8 @@ fun makeExpression(data: String) : Expression {
     return lastExpression
 }
 
-class ParserException(errorMessage: String) : Exception(errorMessage)
+/**
+ * Exception parser wrap for Exception
+ * @property errorMessage
+ */
+class ParserException(private val errorMessage: String) : Exception(errorMessage)
