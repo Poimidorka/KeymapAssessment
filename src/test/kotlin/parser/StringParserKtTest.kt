@@ -1,8 +1,12 @@
 package parser
 
-import org.example.parser.makeExpressionFromString
-import org.junit.jupiter.api.Assertions.assertEquals
+import org.exparser.expression.Expression
+import org.exparser.parser.ParserException
+import org.exparser.parser.makeExpressionFromString
+import org.exparser.util.StringLinkedBuilder
+import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
+import kotlin.system.measureTimeMillis
 import kotlin.random.Random
 
 class StringParserKtTest {
@@ -38,5 +42,55 @@ class StringParserKtTest {
             }
             assertEqualExpression(expressionToParse)
         }
+    }
+    @Test
+    fun performanceTest() {
+        // Might be modified for a specific machine
+        val TIME_TRESHOLD = 2000
+        var stringBuilder = StringLinkedBuilder("1000")
+        for (i in 0..100000) {
+            stringBuilder = StringLinkedBuilder("(").append(stringBuilder).append("+-123412)")
+        }
+        val expression = stringBuilder.toString()
+        val timeInMillis = measureTimeMillis {
+            makeExpressionFromString(expression)
+        }
+        assertTrue(timeInMillis < TIME_TRESHOLD)
+    }
+    @Test
+    fun wrongSymbolTest() {
+        val query = "(1000/1000)"
+        var exceptionThrown = false
+        try {
+            makeExpressionFromString(query)
+        } catch (exception: ParserException) {
+            exceptionThrown = true
+            assertEquals(exception.message, "Unsupported character /")
+        }
+        assertTrue(exceptionThrown)
+    }
+    @Test
+    fun wrongBalanceTest() {
+        val query = "((1000+1000)"
+        var exceptionThrown = false
+        try {
+            makeExpressionFromString(query)
+        } catch (exception: ParserException) {
+            exceptionThrown = true
+            assertEquals(exception.message, "Unsupported brackets or empty expression")
+        }
+        assertTrue(exceptionThrown)
+    }
+    @Test
+    fun wrongEndingTest() {
+        val query = "(1000+1000)+"
+        var exceptionThrown = false
+        try {
+            makeExpressionFromString(query)
+        } catch (exception: ParserException) {
+            exceptionThrown = true
+            assertEquals(exception.message, "String ends with the operation +")
+        }
+        assertTrue(exceptionThrown)
     }
 }
