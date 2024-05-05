@@ -1,14 +1,13 @@
 package parser
 
-import org.example.expression.Expression
-import org.example.parser.makeExpression
+import org.example.parser.makeExpressionFromString
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import kotlin.random.Random
 
-class ParserKtTest {
+class StringParserKtTest {
     fun assertEqualExpression(expressionToParse: String) {
-        assertEquals(expressionToParse, makeExpression(expressionToParse).toString())
+        assertEquals(expressionToParse, makeExpressionFromString(expressionToParse).toString())
     }
     @Test
     fun smallTest() {
