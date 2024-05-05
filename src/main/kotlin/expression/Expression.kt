@@ -1,18 +1,19 @@
-package org.example.expression
-import org.example.parser.makeExpressionFromString
-import org.example.tree.Node
-import org.example.tree.QueryTree
+package org.exparser.expression
+import org.exparser.parser.makeExpressionFromString
+import org.exparser.tree.Node
+import org.exparser.tree.QueryTree
 
 /**
  * Represents a base class for expressions
- * @param queryTree is a Tree class that represents the internal structure of an expression
+ * @param queryTree is a QueryTree class that represents the internal structure of an expression
  */
-open class Expression(open val queryTree: QueryTree) {
+open class Expression(open var queryTree: QueryTree) {
     companion object {
         fun expressionFromString(string: String) : Expression {
             return makeExpressionFromString(string)
         }
     }
+    constructor(string: String) : this(expressionFromString(string).queryTree)
     operator fun plus(other: Expression) : BinaryExpression {
         return BinaryExpression(QueryTree(Node(Operation.ADD, queryTree.root, other.queryTree.root)))
     }
@@ -47,16 +48,19 @@ open class Expression(open val queryTree: QueryTree) {
 }
 
 /**
- * Represents binary expression like a - b
+ * Represents binary expressions like a - b
  */
-class BinaryExpression(override val queryTree: QueryTree) : Expression(queryTree) {
+class BinaryExpression(queryTree: QueryTree) : Expression(queryTree) {
     init {
         if (!queryTree.root.isBinary())
             throw WrongExpressionException("Attempting to create the Binary expression from a non-binary rooted tree")
     }
 }
 
-class UnaryExpression(override val queryTree: QueryTree) : Expression(queryTree) {
+/**
+ * Represents unary expressions like -a
+ */
+class UnaryExpression(queryTree: QueryTree) : Expression(queryTree) {
     constructor(string: String) : this(QueryTree(Operation.ADD)) {
         if (Operation.checkOperation(string[0]))
             queryTree.root = Node(Operation.SUB, Node(string.substring(1)))

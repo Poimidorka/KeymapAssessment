@@ -3,7 +3,7 @@ plugins {
     id 'application'
 }
 
-group = 'org.example'
+group = 'org.exparser'
 version = '1.0-SNAPSHOT'
 
 repositories {
@@ -11,7 +11,8 @@ repositories {
 }
 
 application {
-    mainClassName = "org.example.MainKt"
+    mainClassName = "org.exparser.MainKt"
+    applicationDefaultJvmArgs = ["-Xss1000m"]
 }
 
 dependencies {

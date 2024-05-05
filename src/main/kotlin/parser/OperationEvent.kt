@@ -1,7 +1,7 @@
-package org.example.parser
+package org.exparser.parser
 
-import org.example.expression.Expression
-import org.example.expression.Operation
+import org.exparser.expression.Expression
+import org.exparser.expression.Operation
 
 /**
  * Supporting class that helps to store operations and where they were occurred while parsing

@@ -1,4 +1,4 @@
-package org.example.expression
+package org.exparser.expression
 
 /**
  * Enum that represents all operations that are allowed

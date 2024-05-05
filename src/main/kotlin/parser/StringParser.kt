@@ -1,9 +1,9 @@
-package org.example.parser
-import org.example.expression.Expression
-import org.example.expression.Operation
-import org.example.expression.UnaryExpression
-import org.example.util.Digit
-import org.example.util.Number
+package org.exparser.parser
+import org.exparser.expression.Expression
+import org.exparser.expression.Operation
+import org.exparser.expression.UnaryExpression
+import org.exparser.util.Digit
+import org.exparser.util.Number
 
 
 /**
@@ -53,7 +53,8 @@ private fun applyOperation(left: Expression, operation: Operation, right: Expres
 /**
  * E
  */
-fun makeExpressionFromString(data: String) : Expression {
+fun makeExpressionFromString(string: String) : Expression {
+    val data = string.filter { !it.isWhitespace() }
     if (data.isEmpty()) {
         throw ParserException("Empty strings are not supported")
     }

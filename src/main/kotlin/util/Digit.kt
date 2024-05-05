@@ -1,4 +1,4 @@
-package org.example.util
+package org.exparser.util
 
 /**
  * Represents a single digit in a number.

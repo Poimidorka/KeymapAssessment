@@ -1,5 +1,5 @@
-package org.example.tree
-import org.example.expression.Operation
+package org.exparser.tree
+import org.exparser.expression.Operation
 
 /**
  * Supporting class for the Tree class

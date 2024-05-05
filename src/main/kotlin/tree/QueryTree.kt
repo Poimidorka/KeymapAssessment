@@ -1,6 +1,7 @@
-package org.example.tree
+package org.exparser.tree
 
-import org.example.expression.Operation
+import org.exparser.expression.Operation
+import org.exparser.util.StringLinkedBuilder
 
 /**
  * Represents a tree-like data structure with Nodes
@@ -13,18 +14,18 @@ class QueryTree(var root: Node) {
      * Recursively forms a StringBuilder
      * @return a StringBuilder for a tree
      */
-    private fun toStringBuilder() : StringBuilder {
-        val result = StringBuilder()
+    private fun toStringBuilder() : StringLinkedBuilder {
+        val result = StringLinkedBuilder()
         when {
-            root.isLeaf() -> result.append(root.leaf)
+            root.isLeaf() -> result.append(root.leaf.toString())
             root.isBinary() -> {
                 val left = QueryTree(root.left()).toStringBuilder()
                 val right = QueryTree(root.right()).toStringBuilder()
-                result.append('(').append(left).append(root.operation).append(right).append(')')
+                result.append('(').append(left).append(root.operation.toString()).append(right).append(')')
             }
             root.isUnary() -> {
                 val left = QueryTree(root.left()).toStringBuilder()
-                result.append(root.operation).append(left)
+                result.append(root.operation.toString()).append(left)
             }
             else -> {}
         }

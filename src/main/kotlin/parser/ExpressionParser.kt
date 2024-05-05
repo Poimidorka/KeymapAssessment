@@ -1,6 +1,6 @@
-package org.example.parser
+package org.exparser.parser
 
-import org.example.expression.Expression
+import org.exparser.expression.Expression
 
 /**
  * dfs function that iterates through expression structure and forms an order
@@ -22,7 +22,7 @@ fun dfs(expression: Expression, array: ArrayList<String>) {
             val leftNumber = array.size - 1
             dfs(expression.right()!!, array)
             val rightNumber = array.size - 1
-            array.add("<step${array.size}> ::= (<step${leftNumber}>${root.operation}<step${rightNumber}>")
+            array.add("<step${array.size}> ::= (<step${leftNumber}>${root.operation}<step${rightNumber}>)")
         }
     }
 }

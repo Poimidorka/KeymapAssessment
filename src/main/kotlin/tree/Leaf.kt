@@ -1,7 +1,7 @@
-package org.example.tree
-import org.example.util.Number
+package org.exparser.tree
+import org.exparser.util.Number
 
-data class Leaf(private val data: String) {
+class Leaf(private val data: String) {
     private var isNumber = false
     private var isElement = false
     init {

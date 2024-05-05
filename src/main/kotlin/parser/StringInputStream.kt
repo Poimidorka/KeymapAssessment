@@ -1,4 +1,4 @@
-package org.example.parser
+package org.exparser.parser
 
 /**
  * Represents a class that provides a char-like stream that is based on String
