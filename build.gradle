@@ -12,7 +12,6 @@ repositories {
 
 application {
     mainClassName = "org.exparser.MainKt"
-    applicationDefaultJvmArgs = ["-Xss1000m"]
 }
 
 dependencies {
@@ -20,6 +19,9 @@ dependencies {
 }
 
 test {
+    testLogging {
+        events "passed", "skipped", "failed", "standardOut", "standardError"
+    }
     useJUnitPlatform()
 }
 
