@@ -66,8 +66,6 @@ bash gradlew.bat build
     - [Number.kt](src/main/kotlin/util/Number.kt) - Number class that consist of Digits
     - [StringLinkedBuilder.kt](src/main/kotlin/util/StringLinkedBuilder.kt) - More efficient version of StringBuilder, utilises linked list to enhance .append() performance while concatenating other builder 
   - [Main.kt](src/main/kotlin/Main.kt) - Provides a main function that makes an interactive process of parsing incoming data
-
-  - 
 ## Tests
 
 Running all tests
