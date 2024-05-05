@@ -68,18 +68,17 @@ Running all tests
 
 In Linux and macOS:
 ```bash
-./gradlew test
+./gradlew clean test
 ```
 
 In Windows:
 ```bash
-bash gradlew.bat test
+bash gradlew.bat clean test
 ```
 
 ## Usage
 
 As a library:
-
 ```kotlin
 import org.exparser.expression.Expression
 fun main() {
@@ -87,4 +86,9 @@ fun main() {
     val b = a + a - a * a
     println(b)
 }
+```
+
+As a command line application:
+```bash
+./gradlew run --args="((1000-7)-7)"
 ```
