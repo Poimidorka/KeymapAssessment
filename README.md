@@ -1,5 +1,7 @@
 # Arithmetic expression parser
 
+[![Java CI with Gradle](https://github.com/Poimidorka/KeymapAssessment/actions/workflows/gradle.yml/badge.svg)](https://github.com/Poimidorka/KeymapAssessment/actions/workflows/gradle.yml)
+
 The Kotlin project that consist of library that is able to parse the expressions
 that satisfy the following grammar:
 
