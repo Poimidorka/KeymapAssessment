@@ -61,7 +61,13 @@ bash gradlew.bat build
     - [Leaf.kt](src/main/kotlin/tree/Leaf.kt) - Leaf data class that represents leaf data like "element" or Number
     - [Node.kt](src/main/kotlin/tree/Node.kt) - Node class for a tree that holds operation and list of nodes for this operation
     - [QueryTree.kt](src/main/kotlin/tree/QueryTree.kt) - Tree class that consists of nodes that can be used in classes like Expression to store data
-  - [Main.kt](src/main/kotlin/Main.kt) - Provides a main function that makes an interactive process of parsing incoming data  
+  - [util](src/main/kotlin/util) - Package that contains classes useful for all packages
+    - [Digit.kt](src/main/kotlin/util/Digit.kt) - Digit class that is a part of Number
+    - [Number.kt](src/main/kotlin/util/Number.kt) - Number class that consist of Digits
+    - [StringLinkedBuilder.kt](src/main/kotlin/util/StringLinkedBuilder.kt) - More efficient version of StringBuilder, utilises linked list to enhance .append() performance while concatenating other builder 
+  - [Main.kt](src/main/kotlin/Main.kt) - Provides a main function that makes an interactive process of parsing incoming data
+
+  - 
 ## Tests
 
 Running all tests
